@@ -8,6 +8,8 @@ app.get('/', async (req, res) => {
     })
     .then(data => {
         res.send(req.headers)
+    }).catch(e => {
+        res.send(e)
     })
 });
 
