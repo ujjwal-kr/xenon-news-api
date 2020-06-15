@@ -14,6 +14,7 @@ app.get('/', async (req, res) => {
 
         var result1 = await convert.xml2json(data.data, {compact: true});
         res.json(result1);
+        console.log("CONNNNNNNERD")
     }).catch(e => {
         res.send(e)
     })
