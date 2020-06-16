@@ -12,23 +12,26 @@ app.get('/', async (req, res) => {
     })
     .then(async data => {
 
-        var result = await convert.xml2json(data.data, {compact: true});
-        const entity = {
-            title: "Hello from Heroku !",
-            body: "LOL"
-        }
-        await axios.post('https://us-central1-xenon-4dfeb.cloudfunctions.net/server', {entity}, {
-            headers: {"pswd": "ujjwalkumaris110%awesome"}
-        }).then(res => {
-            return
-        })
-        console.log("CRONNNED")
-        res.end();
+        // const entity = {
+        //     title: "Hello from Heroku !",
+        //     body: "LOL"
+        // }
+        // await axios.post('https://us-central1-xenon-4dfeb.cloudfunctions.net/server', entity, {
+        //     headers: {"pswd": "ujjwalkumaris110%awesome"}
+        // }).then(r => {
+        //     return console.log(r.data)
+        //     res.end();
+        // }).catch(e => {
+        //     console.log(e)
+        // })
+        const result = await convert.xml2json(data.data, {compact: true});
+        await res.json(result);
     }).catch(e => {
         res.send(e)
     })
 });
 
-app.listen(process.env.PORT, () => {
+
+app.listen(3000, () => {
     console.log('Example app listening on port port!');
 });
