@@ -4,7 +4,6 @@ const axios = require('axios');
 var cors = require('cors')
 var convert = require('xml-js');
 
-const port = 3000 || process.env.PORT;
 app.use(cors())
 app.get('/cron', async (req, res) => {
     await res.send("Hello CRON")
@@ -17,9 +16,9 @@ app.get('/', async (req, res) => {
         const result = await convert.xml2json(data.data, {compact: true});
         const parsed = JSON.parse(result);
         let i;
-        // for (i = 0; i < 60; i++) {
-        //     parsed.rss.channel.item.pop()
-        // }
+        for (i = 0; i < 40; i++) {
+            parsed.rss.channel.item.pop()
+        }
         parsed.rss.channel.item.map(it => {
             it.description = null;
             it.guid = null;
@@ -30,14 +29,6 @@ app.get('/', async (req, res) => {
     }).catch(e => {
         res.send(e)
     })
-        // await axios.post('https://us-central1-xenon-4dfeb.cloudfunctions.net/server', final, {
-        //     headers: {"pswd": "ujjwalkumaris110%awesome"}
-        // }).then(r => {
-        //     return console.log(r.data)
-        //     res.end();
-        // }).catch(e => {
-        //     console.log(e)
-        // })
 });
 
 
