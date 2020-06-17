@@ -20,10 +20,10 @@ app.get('/', async (req, res) => {
         for (i = 0; i < 60; i++) {
             parsed.rss.channel.item.pop()
         }
-        parsed.rss.channel.item.forEach(it => {
+        parsed.rss.channel.item.map(it => {
             it.description = null;
             it.guid = null;
-            it.source._attributes = null
+            it.source._attributes = null;
         })
         const final = parsed.rss.channel.item;
         await res.json({ final });
