@@ -15,10 +15,6 @@ app.get('/', async (req, res) => {
     .then(async data => {
         const result = await convert.xml2json(data.data, {compact: true});
         const parsed = JSON.parse(result);
-        let i;
-        for (i = 0; i < 40; i++) {
-            parsed.rss.channel.item.pop()
-        }
         parsed.rss.channel.item.map(it => {
             it.description = null;
             it.guid = null;
