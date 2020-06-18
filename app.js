@@ -9,7 +9,7 @@ app.get('/cron', async (req, res) => {
     await res.send("Hello CRON")
 })
 app.get('/', async (req, res) => {
-    await axios.get("https://news.google.com/rss/search?q=technology&hl=en-IN&gl=IN&ceid=IN:en", {
+    await axios.get("https://news.google.com/rss/search?q=health+fittness&hl=en-IN&gl=IN&ceid=IN:en", {
         headers: {"User-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"}
     })
     .then(async data => {
@@ -28,6 +28,6 @@ app.get('/', async (req, res) => {
 });
 
 
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
     console.log('Example app listening on port port!');
 });
