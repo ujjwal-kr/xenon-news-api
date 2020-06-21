@@ -8,8 +8,8 @@ app.use(cors())
 app.get('/cron', async (req, res) => {
     await res.send("Hello CRON")
 })
-app.get('/search', async (req, res) => {
-    await axios.get("https://news.google.com/rss/search?q="+ req.headers.search +"?hl=en-IN&gl=IN&ceid=IN%3Aen", {
+app.get('/search/:id', async (req, res) => {
+    await axios.get("https://news.google.com/rss/search?q="+ req.params.id, {
         headers: {"User-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"}
     })
     .then(async data => {
@@ -21,7 +21,7 @@ app.get('/search', async (req, res) => {
             it.source._attributes = null;
         })
         const final = parsed.rss.channel.item;
-        await res.json({ final });
+        await res.json({final});
     }).catch(e => {
         res.send(e)
     })
@@ -129,7 +129,7 @@ app.get('/entertainment', async (req, res) => {
 
 
 
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
     console.log('Example app listening on port port!');
 });
  
