@@ -128,6 +128,26 @@ app.get('/entertainment', async (req, res) => {
 
 
 
+app.get('/india', async (req, res) => {
+    await axios.get("https://news.google.com/rss/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNRE55YXpBU0FtVnVLQUFQAQ?hl=en-IN&gl=IN&ceid=IN%3Aen", {
+        headers: {"User-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"}
+    })
+    .then(async data => {
+        const result = await convert.xml2json(data.data, {compact: true});
+        const parsed = JSON.parse(result);
+        parsed.rss.channel.item.map(it => {
+            it.description = null;
+            it.guid = null;
+            it.source._attributes = null;
+        })
+        const final = parsed.rss.channel.item;
+        await res.json({ final });
+    }).catch(e => {
+        res.send(e)
+    })
+});
+
+
 
 app.listen(process.env.PORT, () => {
     console.log('Example app listening on port port!');
